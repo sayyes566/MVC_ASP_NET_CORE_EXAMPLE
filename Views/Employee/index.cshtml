@@ -2,6 +2,77 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>BookStore</h2>
 
-<p>Hello from our View Template!</p>
+<p>Introduction Bookstore Employee!</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Job</th>
+      <th>Mentor</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+
+<div class="card">
+  <div class="card-header">
+    Detail
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Average age of Employee</h5>
+    <p class="card-text"></p>
+    <!--a href="#" class="btn btn-primary">Go somewhere</a-->
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+
+$.ajax({ 
+    url: "/api/employee", 
+    type: "GET", 
+    dataType: "json", 
+    success: function(Jdata) { 
+        let content ='';
+        let ave_age = 0;
+        let p = 0;
+        Jdata.forEach(j=> {
+            p +=1;
+            content+= "<tr>";
+            content+= "<td>";
+            content+= j.name;
+            content+= "</td>";
+            content+= "<td><code>";
+            content+= j.age;
+            ave_age+= j.age;
+            content+= "</code></td>";
+            content+= "<td><code>";
+            content+= j.job;
+            content+= "</code></td>";
+            content+= "<td><code>";
+            content+= j.mentor;
+            content+= "</code></td>";
+            content+= "</tr>";
+            
+        })
+        ave_age= ave_age/p ;
+        $('.card-text').text(parseInt(ave_age));
+        $('tbody').html(content);
+    },error: function() {
+         console.log("ERROR!!!"); 
+    } 
+});
+
+
+</script>
+
+
+
+
